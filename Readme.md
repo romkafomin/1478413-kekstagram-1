@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [romafominn](https://up.htmlacademy.ru/javascript-individual/1/user/1478413).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Сударев] (https://htmlacademy.ru/profile/id1152185).
 
 ---
 
