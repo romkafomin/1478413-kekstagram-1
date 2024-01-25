@@ -6,13 +6,13 @@
 
 function testingString(str) {
   let reverseStr = str.split('').reverse().join('');
-  return reverseStr.toLowerCase() === str.toLowerCase() ? true : false;
+  return reverseStr.toLowerCase().replaceAll(' ') === str.toLowerCase().replaceAll(' ') ? true : false;
 }
 
-function isPolindrom (str) {
-  const lowerString = str.toLowerCase();
+function isPolindrom(str) {
+  let lowerString = str.toLowerCase();
   let reverseString = '';
-  for (let i = lowerString.length - 1; i < 0; i--) {
+  for (let i = lowerString.length -1; i >= 0; i--) {
     reverseString += lowerString[i];
   }
   return lowerString === reverseString;
@@ -62,8 +62,28 @@ function сutOutNumbers(str) {
  */
 
 function changeString(str, length, addStr) {
+  const strLength = str.length;
+  const freeCharsCount = length - strLength;
+  if (strLength > length) {
+    return str;
+  }
+  const repeatString = addStr.repeat(freeCharsCount / addStr.length)
+  const additionalCharsToAdd = addStr.slice(0, freeCharsCount % addStr.length);
+
+  return additionalCharsToAdd + repeatString + str;
 
 }
+
+// Добавочный символ использован один раз
+changeString('1', 2, '0');      // '01'
+// Добавочный символ использован три раза
+changeString('1', 4, '0');      // '0001'
+// Добавочные символы обрезаны с конца
+changeString('q', 4, 'werty');  // 'werq'
+// Добавочные символы использованы полтора раза
+имяФункции('q', 4, 'we');     // 'wweq'
+// Добавочные символы не использованы, исходная строка не изменена
+changeStringз('qwerty', 4, '0'); // 'qwerty'
 
 
 /**
