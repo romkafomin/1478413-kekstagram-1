@@ -6,7 +6,7 @@ function getRandomInteger (a, b) {
   const upper = Math.floor(Math.max(a, b));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-};
+}
 
 //функция для получения уникального id в диапазоне от min до max
 function createRandomIdFromRangeGenerator (min, max) {
