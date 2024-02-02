@@ -1,5 +1,5 @@
 import {getRandomInteger, generatePhotoId, generatePhotoUrl, generateCommentId} from './util.js';
-import {COMMENTS_ARRAY_LENGTH, NAMES_LIST, DESCRIPTION_LIST} from './data'
+import {COMMENTS_ARRAY_LENGTH, NAMES_LIST, DESCRIPTION_LIST, COMMENTS_LIST} from './data'
 
 //функция для генерации массива комментариев
 function getComments () {
