@@ -1,5 +1,5 @@
 import {getRandomInteger, generatePhotoId, generatePhotoUrl, generateCommentId} from './util.js';
-import {PHOTOS_COUNT, COMMENTS_ARRAY_LENGTH, NAMES_LIST, DESCRIPTION_LIST, COMMENTS_LIST} from './data'
+import {COMMENTS_ARRAY_LENGTH, NAMES_LIST, DESCRIPTION_LIST, COMMENTS_LIST} from './data.js'
 
 //функция для генерации массива комментариев
 function getComments () {
@@ -21,7 +21,5 @@ function makeUserPhoto () {
     comments: Array.from({length: getRandomInteger(COMMENTS_ARRAY_LENGTH.min,COMMENTS_ARRAY_LENGTH.max)}, getComments)
   };
 }
-
-const generateArrayPhoto = Array.from({length: PHOTOS_COUNT}, makeUserPhoto);
 
 export {makeUserPhoto};
