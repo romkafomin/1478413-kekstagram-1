@@ -7,16 +7,16 @@ function createPicture ({url,likes,comments}) {
   pictureElement.querySelector('.picture__likes').textContent = likes;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
   return pictureElement;
-};
+}
 
 function createAllPicture (pictures) {
   const pictureFragment = document.createDocumentFragment();
-  pictures.forEach(picture => {
+  pictures.forEach ((picture) => {
     const thumbnail = createPicture(picture);
     pictureFragment.append(thumbnail);
   });
-  pictureBlock.append(pictureFragment)
+  pictureBlock.append(pictureFragment);
 }
 
-export {createAllPicture}
+export {createAllPicture};
 
