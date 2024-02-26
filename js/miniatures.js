@@ -5,7 +5,7 @@ const pictureBlock = document.querySelector('.pictures');
 
 function createPicture ({url,likes,comments,description,id}) {
   const pictureElement = pictureTemplate.cloneNode(true);
-  const imgElement = document.querySelector('.picture__img');
+  const imgElement = pictureElement.querySelector('.picture__img');
   imgElement.src = url;
   imgElement.textContent = description;
   imgElement.dataset.id = id;
