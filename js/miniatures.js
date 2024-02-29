@@ -12,8 +12,8 @@ function createPicture ({url,likes,comments,description,id}) {
   imgElement.dataset.id = id;
   pictureElement.querySelector('.picture__likes').textContent = likes;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
-  pictureBlock.addEventListener('click' , () => {
-    openFullSizePicture();
+  pictureElement.addEventListener('click' , () => {
+    openFullSizePicture(id);
   });
   return pictureElement;
 }
