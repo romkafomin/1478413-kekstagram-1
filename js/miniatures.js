@@ -1,9 +1,7 @@
 import {openFullSizePicture} from './big-pictures.js';
-import {renderComments,updateCommentsShown} from './comments.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictureBlock = document.querySelector('.pictures');
-const commentsButton = document.querySelector('.social__comments-loader');
 
 //создаем миниатюру, вешаем обработчик для открытия полноразмерной фотографии
 function createPicture ({url,likes,comments,description,id}) {
@@ -16,10 +14,6 @@ function createPicture ({url,likes,comments,description,id}) {
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
   pictureElement.addEventListener('click' , () => {
     openFullSizePicture(id);
-  });
-  commentsButton.addEventListener('click', () => {
-    renderComments();
-    updateCommentsShown();
   });
   return pictureElement;
 }
