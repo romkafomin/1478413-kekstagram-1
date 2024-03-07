@@ -1,41 +1,39 @@
-import { makeUserPhoto } from './photos-generator.js';
-
-const userPhoto = makeUserPhoto();
-let commentsShown = 5;
 const commentsShownElement = document.querySelector('.social__comment-count');
-const loadMoreButton = document.querySelector('.social__comments-loader');
 const commentsContainer = document.querySelector('.social__comments');
+const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
+const loadMoreCommentsButton = document.querySelector('.social__comments-loader');
+let commentsToShow = 0;
+let newCommentsArray = [];
 
-function renderComments (count) {
-  //очищаем комментарии
-  commentsContainer.innerHTML = '';
-  userPhoto.comments.slice(0, count).forEach((comment) => {
-    //создаем пункт списка
-    const commentElement = document.createElement('li');
-    commentElement.classList.add('social__comment');
-    const commentAvatar = document.createElement('img');
-    commentAvatar.classList.add('social__picture');
-    commentAvatar.src = comment.avatar;
-    commentAvatar.alt = comment.name;
-    const commentText = document.createElement('p');
-    commentText.classList.add('social__text');
-    commentText.textContent = comment.message;
-    //добавляем в пункт списка img и p
-    commentElement.append(commentAvatar,commentText);
-    //добавляем в контейнер пункт списка
-    commentsContainer.append(commentElement);
-  });
+function renderComments ({avatar,name,message}) {
+  const commentElement = commentTemplate.cloneNode(true);
+  const commentImg = commentElement.querySelector('.social__picture');
+  commentImg.innerHTML = '';
+  commentImg.src = avatar;
+  commentImg.alt = name;
+  commentElement.querySelector('.social__text').textContent = message;
+  return commentElement;
 }
 
-function updateCommentsShown () {
-  //увеличиваем шаг на 5
-  commentsShown += 5;
-  //обновляем счетчик комментариев
-  commentsShownElement.textContent = `${commentsShown} из ${userPhoto.comments.length} комментариев`;
-  if (commentsShown >= userPhoto.comments.length) {
-    loadMoreButton.classList.add('hidden');
+function updateCommentsShown (commentsArray) {
+  const currentCommentsLength = commentsContainer.children.length;
+  if (commentsArray.length <= 5) {
+    commentsToShow = Math.min(commentsArray.length,5);
+    loadMoreCommentsButton.classList.add('hidden');
   }
-  renderComments(commentsShown);
+  newCommentsArray = commentsArray.slice(0, commentsToShow + 5);
+  commentsShownElement.textContent = `${currentCommentsLength + newCommentsArray.length} из ${commentsArray.length} комментариев`;
+  const commentFragment = document.createDocumentFragment();
+  newCommentsArray.forEach((comment) => {
+    const addComment = renderComments(comment);
+    commentFragment.append(addComment);
+  });
+  commentsContainer.append(commentFragment);
+  console.log(currentCommentsLength + newCommentsArray.length);
+  console.log(commentsArray.length);
+  if (currentCommentsLength + newCommentsArray.length >= commentsArray.length) {
+    loadMoreCommentsButton.classList.add('hidden');
+  }
 }
 
-export {renderComments,updateCommentsShown};
+export {updateCommentsShown};

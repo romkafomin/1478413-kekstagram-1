@@ -4,7 +4,7 @@ import { updateCommentsShown } from './comments.js';
 const bigPictureBlock = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
 const closeButton = document.querySelector('.big-picture__cancel');
-const commentsButton = document.querySelector('.social__comments-loader');
+const loadMoreCommentsButton = document.querySelector('.social__comments-loader');
 
 
 //удаляем/добавляем нужные классы для показа полного изображения, вешаем слушатель нажатия кнопки закрытия
@@ -34,11 +34,6 @@ closeButton.addEventListener('click', () => {
   closeFullSize();
 });
 
-/*bigPictureBlock.addEventListener('click', () => {
-  openFullSize();
-});
-*/
-
 //создаем полноразмерную фотографию
 function renderBigPicture ({id, url,likes,comments,description}) {
   document.querySelector('.big-picture__img img').src = url;
@@ -46,9 +41,10 @@ function renderBigPicture ({id, url,likes,comments,description}) {
   document.querySelector('.likes-count').textContent = likes;
   document.querySelector('.comments-count').textContent = comments.length;
   document.querySelector('.social__caption').textContent = description;
-  commentsButton.addEventListener('click', () => {
-    updateCommentsShown();
+  loadMoreCommentsButton.addEventListener('click', () => {
+    updateCommentsShown(comments);
   });
+  updateCommentsShown(comments);
 }
 
 //открываем полноразмерную фотографию через поиск по id

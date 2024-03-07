@@ -2,6 +2,7 @@ import {openFullSizePicture} from './big-pictures.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictureBlock = document.querySelector('.pictures');
+const commentsContainer = document.querySelector('.social__comments');
 
 //создаем миниатюру, вешаем обработчик для открытия полноразмерной фотографии
 function createPicture ({url,likes,comments,description,id}) {
@@ -12,6 +13,7 @@ function createPicture ({url,likes,comments,description,id}) {
   imgElement.dataset.id = id;
   pictureElement.querySelector('.picture__likes').textContent = likes;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
+  commentsContainer.innerHTML = '';
   pictureElement.addEventListener('click' , () => {
     openFullSizePicture(id);
   });
