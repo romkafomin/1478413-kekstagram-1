@@ -1,10 +1,11 @@
 import { generateArrayPhoto } from './main.js';
-import { renderCommentsShown, updateCommentsShown } from './comments.js';
+import { renderCommentsShown , resetCommentsShown } from './comments.js';
 
 const bigPictureBlock = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
 const closeButton = document.querySelector('.big-picture__cancel');
 const loadMoreCommentsButton = document.querySelector('.social__comments-loader');
+let currentComments = [];
 
 
 //удаляем/добавляем нужные классы для показа полного изображения, вешаем слушатель нажатия кнопки закрытия
@@ -21,6 +22,7 @@ function closeFullSize () {
   bodyElement.classList.remove('modal-open');
   document.querySelector('.social__comments').innerHTML = '';
   loadMoreCommentsButton.classList.remove('hidden');
+  loadMoreCommentsButton.removeEventListener('click', helpRemovingCommentsListener);
 
   document.removeEventListener('keydown', pushEscButton);
 }
@@ -33,6 +35,10 @@ function pushEscButton (evt) {
   }
 }
 
+function helpRemovingCommentsListener () {
+  renderCommentsShown(currentComments);
+}
+
 
 //создаем полноразмерную фотографию
 function renderBigPicture ({id, url,likes,comments,description}) {
@@ -41,10 +47,12 @@ function renderBigPicture ({id, url,likes,comments,description}) {
   document.querySelector('.likes-count').textContent = likes;
   //document.querySelector('.comments-count').textContent = comments.length;
   document.querySelector('.social__caption').textContent = description;
-  loadMoreCommentsButton.addEventListener('click', () => {
-    updateCommentsShown(comments);
-  });
-  renderCommentsShown(comments);
+  currentComments = comments;
+  loadMoreCommentsButton.addEventListener('click',
+    helpRemovingCommentsListener
+  );
+  resetCommentsShown();
+  renderCommentsShown(currentComments);
 }
 
 //открываем полноразмерную фотографию через поиск по id

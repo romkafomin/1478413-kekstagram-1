@@ -16,23 +16,19 @@ function renderComment ({avatar,name,message}) {
   return commentElement;
 }
 
-
-function renderCommentsShown (commentsArray) {
-  commentsToShow = Math.min(commentsArray.length,5);
-  newCommentsArray = commentsArray.slice(0 , commentsToShow);
-  commentsShownElement.textContent = `${commentsToShow} из ${commentsArray.length} комментариев`;
-  newCommentsArray.forEach((comment) => {
-    const addComment = renderComment(comment);
-    commentFragment.append(addComment);
-  });
-  commentsContainer.append(commentFragment);
-  if (commentsArray.length <= 5) {
-    loadMoreCommentsButton.classList.add('hidden');
-  }
+function resetCommentsShown () {
+  commentsToShow = 0;
+  newCommentsArray = [];
 }
 
-function updateCommentsShown (commentsArray) {
-  newCommentsArray = commentsArray.slice(commentsToShow, commentsToShow += 5);
+function renderCommentsShown (commentsArray) {
+  if (commentsArray.length <= 5) {
+    commentsToShow = commentsArray.length;
+    newCommentsArray = [...commentsArray];
+    loadMoreCommentsButton.classList.add('hidden');
+  } else {
+    newCommentsArray = commentsArray.slice(commentsToShow, commentsToShow += 5);
+  }
   if (commentsToShow >= commentsArray.length) {
     loadMoreCommentsButton.classList.add('hidden');
     commentsToShow = commentsArray.length;
@@ -45,4 +41,4 @@ function updateCommentsShown (commentsArray) {
   commentsContainer.append(commentFragment);
 }
 
-export {updateCommentsShown,renderCommentsShown};
+export {renderCommentsShown , resetCommentsShown};
