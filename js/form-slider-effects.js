@@ -50,7 +50,7 @@ const EFFECTS = [
 ];
 
 const DEFAULT_SLIDER_EFFECT = EFFECTS[0];
-let chosenSliderEffects = DEFAULT_SLIDER_EFFECT;
+let chosenSliderEffect = DEFAULT_SLIDER_EFFECT;
 
 const imageElement = document.querySelector('.img-upload__preview img');
 const effectsElement = document.querySelector('.effects');
@@ -67,17 +67,17 @@ function showSlider () {
 }
 
 function isDefault () {
-  return chosenSliderEffects === DEFAULT_SLIDER_EFFECT;
+  return chosenSliderEffect === DEFAULT_SLIDER_EFFECT;
 }
 
 function updateSlider () {
   sliderElement.noUislider.updateOptions({
     range: {
-      min: chosenSliderEffects.min,
-      max: chosenSliderEffects.max,
+      min: chosenSliderEffect.min,
+      max: chosenSliderEffect.max,
     },
-    start: chosenSliderEffects.max,
-    step: chosenSliderEffects.step,
+    start: chosenSliderEffect.max,
+    step: chosenSliderEffect.step,
   });
 
   if (isDefault()) {
@@ -91,22 +91,23 @@ function onEffectsChange (evt) {
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
-  chosenSliderEffects = EFFECTS.find((effect) => effect.name === evt.target.value);
+  chosenSliderEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
+  imageElement.classList = `effects__preview--${chosenSliderEffect.name}`;
   updateSlider();
 }
 
 function onsliderUpdate () {
-  const slidervalue = sliderElement.noUislider.get();
-  if (chosenSliderEffects === DEFAULT_SLIDER_EFFECT) {
+  const sliderValue = sliderElement.noUislider.get();
+  if (chosenSliderEffect === DEFAULT_SLIDER_EFFECT) {
     imageElement.style.filter = DEFAULT_SLIDER_EFFECT.style;
   } else {
-    imageElement.style.filter = `${chosenSliderEffects.style}(${slidervalue}${chosenSliderEffects.unit})`;
+    imageElement.style.filter = `${chosenSliderEffect.style}(${sliderValue}${chosenSliderEffect.unit})`;
   }
-  effectLevelElement.value = slidervalue;
+  effectLevelElement.value = sliderValue;
 }
 
 function resetSliderEffects () {
-  chosenSliderEffects = DEFAULT_SLIDER_EFFECT;
+  chosenSliderEffect = DEFAULT_SLIDER_EFFECT;
   updateSlider();
 }
 
@@ -119,7 +120,7 @@ noUiSlider.create(sliderElement, {
   step: DEFAULT_SLIDER_EFFECT.step,
   connect: 'lower',
 });
-hideSlider();
+//hideSlider();
 
 effectsElement.addEventListener('change', onEffectsChange);
 sliderElement.noUiSlider.on('update', onsliderUpdate);

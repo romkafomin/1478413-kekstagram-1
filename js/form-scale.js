@@ -38,4 +38,4 @@ function resetScale () {
 smallerScaleButtonElement.addEventListener('click', onSmallerButtonClick);
 biggerScaleButtonElement.addEventListener('click', onBiggerButtonClick);
 
-export {resetScale};
+//export {resetScale};
