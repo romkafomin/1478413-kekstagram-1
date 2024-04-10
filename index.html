@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link name="viewport" rel="stylesheet" href="vendor/nouislider/nouislider.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -119,10 +120,9 @@
                     <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
                   </div>
                   <div class="img-upload__field-wrapper">
-                    <textarea minlength="2" class="text__description" name="description"
+                    <textarea class="text__description" name="description"
                     data-pristine-required-message="Обязательное поле"
-                    data-pristine-minlength-message="Минимальная длина поля 2 символа"
-                    data-pristine-maxlength="10"
+                    data-pristine-maxlength="140"
                     data-pristine-maxlength-message="Максимальная длина поля 10 символов"
                     placeholder="Ваш комментарий..."></textarea>
                   </div>
@@ -246,8 +246,9 @@
   </template>
 
   <script src="/vendor/nouislider/nouislider.js"></script>
-  <script src="vendor/pristine/pristine.min.js"></script>
+  <script src="/vendor/pristine/pristine.min.js"></script>
   <script src="js/main.js" type="module"></script>
-  <script src="js/form.js"></script>
+  <script src="js/form-slider-effects.js"></script>
+  <script src="js/form-scale.js"></script>
 </body>
 </html>

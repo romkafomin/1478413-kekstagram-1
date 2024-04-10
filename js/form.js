@@ -25,7 +25,7 @@ function validateHashtags (value) {
   const tags = value.trim().//обрезаеи пробелы
     split(' ').//убираем пробелы между элементами
     filter((tag) => tag.trim().length);//убираем пробелы в случае если был множественный пробел
-  return hasValidCount(tags) && hasUniqueHashtags(tags) && tags.every(isValidHashtags);
+  return tags.length > 0 && hasValidCount(tags) && hasUniqueHashtags(tags) && tags.every(isValidHashtags);
 }
 
 
@@ -39,14 +39,45 @@ function hasUniqueHashtags (tags) {
 }
 
 function hasValidCount (value) {
-  return value.legnth <= MAX_HACHTAGS_COUNT;//проверяем количество введенных хештегов
+  return value.length <= MAX_HACHTAGS_COUNT;//проверяем количество введенных хештегов
 }
+
+const onCommentFormInputFocus = () => {
+  document.removeEventListener('keydown', pushEscButton);
+};
+
+const onCommentFormInputBlur = () => {
+  document.addEventListener('keydown', pushEscButton);
+};
+
+const onHashtagInputFocus = () => {
+  document.removeEventListener('keydown', pushEscButton);
+};
+
+const onHashtagInputBlur = () => {
+  document.addEventListener('keydown', pushEscButton);
+};
 
 
 function openFilterModal () {
   pictureUploadBlock.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
 
+  commentFormInput.addEventListener('focus', () => {
+    onCommentFormInputFocus();
+  });
+  commentFormInput.addEventListener('blur', () => {
+    onCommentFormInputBlur();
+  });
+  hashtagInput.addEventListener('focus', () => {
+    onHashtagInputFocus();
+  });
+  hashtagInput.addEventListener('blur', () => {
+    onHashtagInputBlur();
+  });
+  closeButton.addEventListener('click', () => {
+    closeFilterModal();
+  });
   document.addEventListener('keydown', pushEscButton);
 }
 
@@ -56,16 +87,30 @@ function closeFilterModal () {
   pictureUploadBlock.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
 
+  commentFormInput.removeEventListener('focus', () => {
+    onCommentFormInputFocus();
+  });
+  commentFormInput.removeEventListener('blur', () => {
+    onCommentFormInputBlur();
+  });
+  hashtagInput.removeEventListener('focus', () => {
+    onHashtagInputFocus();
+  });
+  hashtagInput.removeEventListener('blur', () => {
+    onHashtagInputBlur();
+  });
+  closeButton.removeEventListener('click', () => {
+    closeFilterModal();
+  });
+
   document.removeEventListener('keydown', pushEscButton);
 }
 
-pictureForm.addEventListener('change', () => {
-  openFilterModal();
-});
-
-closeButton.addEventListener('click', () => {
-  closeFilterModal();
-});
+function registerChangepictureForm () {
+  pictureForm.addEventListener('change', () => {
+    openFilterModal();
+  });
+}
 
 function pushEscButton (evt) {
   if (evt.key === 'Escape') {
@@ -74,25 +119,11 @@ function pushEscButton (evt) {
   }
 }
 
-commentFormInput.addEventListener('focus', () => {
-  document.removeEventListener('keydown', pushEscButton);
-});
-
-commentFormInput.addEventListener('blur', () => {
-  document.addEventListener('keydown', pushEscButton);
-});
-
-hashtagInput.addEventListener('focus', () => {
-  document.removeEventListener('keydown', pushEscButton);
-});
-
-hashtagInput.addEventListener('blur', () => {
-  document.addEventListener('keydown', pushEscButton);
-});
-
 function onFormSubmit (evt) {
   evt.preventDefault();
   pristine.validate();
 }
 
 pictureUploadForm.addEventListener('submit', onFormSubmit);
+
+export {registerChangepictureForm};
