@@ -71,7 +71,7 @@ function isDefault () {
 }
 
 function updateSlider () {
-  sliderElement.noUislider.updateOptions({
+  sliderElement.noUiSlider.updateOptions({
     range: {
       min: chosenSliderEffect.min,
       max: chosenSliderEffect.max,
@@ -97,7 +97,7 @@ function onEffectsChange (evt) {
 }
 
 function onsliderUpdate () {
-  const sliderValue = sliderElement.noUislider.get();
+  const sliderValue = sliderElement.noUiSlider.get();
   if (chosenSliderEffect === DEFAULT_SLIDER_EFFECT) {
     imageElement.style.filter = DEFAULT_SLIDER_EFFECT.style;
   } else {
