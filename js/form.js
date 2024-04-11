@@ -1,3 +1,6 @@
+import {resetSliderEffects} from './form-slider-effects.js';
+import {resetScale} from './form-scale.js';
+
 const MAX_HACHTAGS_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-za-яё0-9]{1,19}$/i;
 const HASHTAG_ERROR_TEXT = 'Введите только символы #, а-я, 0-9, а-яё';
@@ -84,6 +87,8 @@ function openFilterModal () {
 function closeFilterModal () {
   pictureForm.reset();
   pristine.reset();
+  resetSliderEffects();
+  resetScale();
   pictureUploadBlock.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
 

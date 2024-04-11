@@ -9,7 +9,7 @@ const EFFECTS = [
   },
   {
     name: 'chrome',
-    style: 'graystyle',
+    style: 'grayscale',
     min: 0,
     max: 1,
     step: 0.1,
@@ -48,8 +48,9 @@ const EFFECTS = [
     unit: '',
   }
 ];
-
+//эффект по умолчанию
 const DEFAULT_SLIDER_EFFECT = EFFECTS[0];
+//актуальный эффект
 let chosenSliderEffect = DEFAULT_SLIDER_EFFECT;
 
 const imageElement = document.querySelector('.img-upload__preview img');
@@ -71,6 +72,7 @@ function isDefault () {
 }
 
 function updateSlider () {
+  //обновление слайдера при изменении значения
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: chosenSliderEffect.min,
@@ -88,16 +90,22 @@ function updateSlider () {
 }
 
 function onEffectsChange (evt) {
+  //проверка что клик произошел именно на контейнер с фильтрами
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
+  // поиск нужного эффекта по названию в массиве
   chosenSliderEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
+  //добавление класса в img-upload__preview
   imageElement.classList = `effects__preview--${chosenSliderEffect.name}`;
+  //обновление слайдера при изменении значения
   updateSlider();
 }
 
 function onsliderUpdate () {
+  //получаем значение слайдера
   const sliderValue = sliderElement.noUiSlider.get();
+  //проверяем, что эффект не по умолчанию
   if (chosenSliderEffect === DEFAULT_SLIDER_EFFECT) {
     imageElement.style.filter = DEFAULT_SLIDER_EFFECT.style;
   } else {
@@ -111,6 +119,7 @@ function resetSliderEffects () {
   updateSlider();
 }
 
+//создание слайдера
 noUiSlider.create(sliderElement, {
   range: {
     min: DEFAULT_SLIDER_EFFECT.min,
@@ -122,7 +131,9 @@ noUiSlider.create(sliderElement, {
 });
 //hideSlider();
 
+//обработка изменения эффекта
 effectsElement.addEventListener('change', onEffectsChange);
+//обновляем слайдер при изменении значения
 sliderElement.noUiSlider.on('update', onsliderUpdate);
 
 export {resetSliderEffects};
