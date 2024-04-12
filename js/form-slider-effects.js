@@ -55,7 +55,7 @@ let chosenSliderEffect = DEFAULT_SLIDER_EFFECT;
 
 const imageElement = document.querySelector('.img-upload__preview img');
 const effectsElement = document.querySelector('.effects');
-const sliderContainerElement = document.querySelector('.img-upload__preview-container');
+const sliderContainerElement = document.querySelector('.img-upload__effect-level');
 const effectLevelElement = document.querySelector('.effect-level__value');
 const sliderElement = document.querySelector('.effect-level__slider');
 
@@ -107,6 +107,7 @@ function onsliderUpdate () {
   const sliderValue = sliderElement.noUiSlider.get();
   //проверяем, что эффект не по умолчанию
   if (chosenSliderEffect === DEFAULT_SLIDER_EFFECT) {
+    hideSlider();
     imageElement.style.filter = DEFAULT_SLIDER_EFFECT.style;
   } else {
     imageElement.style.filter = `${chosenSliderEffect.style}(${sliderValue}${chosenSliderEffect.unit})`;
