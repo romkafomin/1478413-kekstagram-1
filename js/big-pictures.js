@@ -1,4 +1,4 @@
-import { generateArrayPhoto } from './main.js';
+import { getData } from './work-with-server.js';
 import { renderCommentsShown , resetCommentsShown } from './comments.js';
 
 const bigPictureBlock = document.querySelector('.big-picture');
@@ -6,7 +6,7 @@ const bodyElement = document.querySelector('body');
 const closeButton = document.querySelector('.big-picture__cancel');
 const loadMoreCommentsButton = document.querySelector('.social__comments-loader');
 let currentComments = [];
-
+const dataArray = getData();
 
 //удаляем/добавляем нужные классы для показа полного изображения, вешаем слушатель нажатия кнопки закрытия
 function openFullSize () {
@@ -57,7 +57,7 @@ function renderBigPicture ({id, url,likes,comments,description}) {
 
 //открываем полноразмерную фотографию через поиск по id
 function openFullSizePicture (photoId) {
-  const selectedPhoto = generateArrayPhoto.find((photo) => photo.id === photoId);
+  const selectedPhoto = dataArray.find((photo) => photo.id === photoId);
   if (selectedPhoto) {
     renderBigPicture(selectedPhoto);
     openFullSize();

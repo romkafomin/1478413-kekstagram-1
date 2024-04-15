@@ -30,5 +30,5 @@ function createAllPicture (pictures) {
   pictureBlock.append(pictureFragment);
 }
 
-export {createAllPicture};
+export {createAllPicture,};
 
